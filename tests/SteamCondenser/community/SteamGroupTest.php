@@ -64,7 +64,7 @@ class SteamGroupTest extends TestCase {
         $data = new \SimpleXMLElement(getFixture('valve-members.xml'));
         $mockBuilder = $this->getMockBuilder('\SteamCondenser\Community\SteamGroup');
         $mockBuilder->setConstructorArgs(['valve', false]);
-        $mockBuilder->setMethods(['getData']);
+        $mockBuilder->onlyMethods(['getData']);
         $group = $mockBuilder->getMock();
         $group->expects($this->once())->method('getData')->with('http://steamcommunity.com/groups/valve/memberslistxml?p=1')->will($this->returnValue($data));
         $group->fetch();
@@ -90,7 +90,7 @@ class SteamGroupTest extends TestCase {
         $data = new \SimpleXMLElement(getFixture('valve-members.xml'));
         $mockBuilder = $this->getMockBuilder('\SteamCondenser\Community\SteamGroup');
         $mockBuilder->setConstructorArgs(['valve', false]);
-        $mockBuilder->setMethods(['getData']);
+        $mockBuilder->onlyMethods(['getData']);
         $group = $mockBuilder->getMock();
         $group->expects($this->once())->method('getData')->with('http://steamcommunity.com/groups/valve/memberslistxml?p=1')->will($this->returnValue($data));
 

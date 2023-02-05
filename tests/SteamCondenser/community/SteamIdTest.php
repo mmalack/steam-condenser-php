@@ -85,7 +85,7 @@ class SteamIdTest extends TestCase {
         $data = new \SimpleXMLElement(getFixture('sonofthor.xml'));
         $mockBuilder = $this->getMockBuilder('\SteamCondenser\Community\SteamId');
         $mockBuilder->setConstructorArgs(['Son_of_Thor', false]);
-        $mockBuilder->setMethods(['getData']);
+        $mockBuilder->onlyMethods(['getData']);
         $steamId = $mockBuilder->getMock();
         $steamId->expects($this->once())->method('getData')->with('http://steamcommunity.com/id/son_of_thor?xml=1')->will($this->returnValue($data));
         $steamId->fetch();
@@ -115,7 +115,7 @@ class SteamIdTest extends TestCase {
     }
 
     public function testResolveVanityUrl() {
-        $webApi = $this->getMockBuilder('\SteamCondenser\Community\WebApi')->setMethods(['_load'])->disableOriginalConstructor()->getMock();
+        $webApi = $this->getMockBuilder('\SteamCondenser\Community\WebApi')->onlyMethods(['_load'])->disableOriginalConstructor()->getMock();
         $webApi->expects($this->once())->method('_load')->with('json', 'ISteamUser', 'ResolveVanityURL', 1, ['vanityurl' => 'koraktor'])->will($this->returnValue('{ "response": { "success": 1, "steamid": "76561197961384956" } }'));
         $this->webApiInstance->setValue($webApi);
 
@@ -124,7 +124,7 @@ class SteamIdTest extends TestCase {
     }
 
     public function testResolveUnknownVanityUrl() {
-        $webApi = $this->getMockBuilder('\SteamCondenser\Community\WebApi')->setMethods(['_load'])->disableOriginalConstructor()->getMock();
+        $webApi = $this->getMockBuilder('\SteamCondenser\Community\WebApi')->onlyMethods(['_load'])->disableOriginalConstructor()->getMock();
         $webApi->expects($this->once())->method('_load')->with('json', 'ISteamUser', 'ResolveVanityURL', 1, ['vanityurl' => 'unknown'])->will($this->returnValue('{ "response": { "success": 42 } }'));
         $this->webApiInstance->setValue($webApi);
 

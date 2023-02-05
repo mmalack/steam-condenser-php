@@ -63,7 +63,7 @@ class RCONSocketTest extends TestCase {
 
     public function testGetReply() {
         $buffer = $this->getMockBuilder('\SteamCondenser\ByteBuffer')->disableOriginalConstructor()->getMock();
-        $this->socketBuilder->setMethods(['receivePacket']);
+        $this->socketBuilder->onlyMethods(['receivePacket']);
         $socket = $this->socketBuilder->getMock();
         $socket->buffer = $buffer;
 
@@ -80,7 +80,7 @@ class RCONSocketTest extends TestCase {
     }
 
     public function testConnectionDropped() {
-        $this->socketBuilder->setMethods(['receivePacket']);
+        $this->socketBuilder->onlyMethods(['receivePacket']);
         $socket = $this->socketBuilder->getMock();
         $tcpSocket = $this->getMock('\SteamCondenser\TCPSocket');
         $tcpSocket->expects($this->once())->method('close');
@@ -91,7 +91,7 @@ class RCONSocketTest extends TestCase {
     }
 
     public function testConnectionReset() {
-        $this->socketBuilder->setMethods(['receivePacket']);
+        $this->socketBuilder->onlyMethods(['receivePacket']);
         $socket = $this->socketBuilder->getMock();
         $tcpSocket = $this->getMock('\SteamCondenser\TCPSocket');
         $tcpSocket->expects($this->once())->method('close');

@@ -43,11 +43,11 @@ class GameServerTest extends TestCase {
     }
 
     public function testUpdatePing() {
-        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->setMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
+        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->onlyMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
         $socket->expects($this->once())->method('send')->with($this->isInstanceOf('\SteamCondenser\Servers\Packets\A2SINFOPacket'));
         $socket->expects($this->once())->method('getReply')->will($this->returnCallback(function() { usleep(50000); }));
 
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
         $server->socket = $socket;
 
         $server->updatePing();
@@ -55,35 +55,35 @@ class GameServerTest extends TestCase {
     }
 
     public function testUpdateChallengeNumber() {
-        $server = $this->serverBuilder->setMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
         $server->expects($this->once())->method('handleResponseForRequest')->with($this->equalTo(GameServer::REQUEST_CHALLENGE));
 
         $server->updateChallengeNumber();
     }
 
     public function testUpdateServerInfo() {
-        $server = $this->serverBuilder->setMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
         $server->expects($this->once())->method('handleResponseForRequest')->with($this->equalTo(GameServer::REQUEST_INFO));
 
         $server->updateServerInfo();
     }
 
     public function testUpdatePlayers() {
-        $server = $this->serverBuilder->setMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
         $server->expects($this->once())->method('handleResponseForRequest')->with($this->equalTo(GameServer::REQUEST_PLAYER));
 
         $server->updatePlayers();
     }
 
     public function testUpdateRules() {
-        $server = $this->serverBuilder->setMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
         $server->expects($this->once())->method('handleResponseForRequest')->with($this->equalTo(GameServer::REQUEST_RULES));
 
         $server->updateRules();
     }
 
     public function testInitialize() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec', 'updateChallengeNumber', 'updatePing', 'updateServerInfo'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec', 'updateChallengeNumber', 'updatePing', 'updateServerInfo'])->getMock();
         $server->expects($this->once())->method('updateChallengeNumber');
         $server->expects($this->once())->method('updatePing');
         $server->expects($this->once())->method('updateServerInfo');
@@ -92,13 +92,13 @@ class GameServerTest extends TestCase {
     }
 
     public function testIsRconAuthenticated() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
 
         $this->assertEquals($this->readAttribute($server, 'rconAuthenticated'), $server->isRconAuthenticated());
     }
 
     public function testCachePing() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec', 'updatePing'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec', 'updatePing'])->getMock();
         $server->expects($this->once())->method('updatePing');
 
         $server->getPing();
@@ -107,7 +107,7 @@ class GameServerTest extends TestCase {
     }
 
     public function testCachePlayers() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec', 'updatePlayers'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec', 'updatePlayers'])->getMock();
         $server->expects($this->once())->method('updatePlayers');
 
         $server->getPlayers();
@@ -116,7 +116,7 @@ class GameServerTest extends TestCase {
     }
 
     public function testCacheRules() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec', 'updateRules'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec', 'updateRules'])->getMock();
         $server->expects($this->once())->method('updateRules');
 
         $server->getRules();
@@ -125,7 +125,7 @@ class GameServerTest extends TestCase {
     }
 
     public function testCacheServerInfo() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec', 'updateServerInfo'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec', 'updateServerInfo'])->getMock();
         $server->expects($this->once())->method('updateServerInfo');
 
         $server->getServerInfo();
@@ -135,7 +135,7 @@ class GameServerTest extends TestCase {
 
     public function testGetPlayerInfoFromSourceWithPassword() {
         $status = getFixture('status_source');
-        $server = $this->serverBuilder->setMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
         $someone = $this->getMock('stdClass', ['addInformation']);
         $somebody = $this->getMock('stdClass', ['addInformation']);
 
@@ -158,7 +158,7 @@ class GameServerTest extends TestCase {
 
     public function testGetPlayerInfoFromSourceAuthenticated() {
         $status = getFixture('status_source');
-        $server = $this->serverBuilder->setMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
         $someone = $this->getMock('stdClass', ['addInformation']);
         $somebody = $this->getMock('stdClass', ['addInformation']);
 
@@ -180,7 +180,7 @@ class GameServerTest extends TestCase {
 
     public function testGetPlayerInfoFromGoldSrcWithPassword() {
         $status = getFixture('status_goldsrc');
-        $server = $this->serverBuilder->setMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
         $someone = $this->getMock('stdClass', ['addInformation']);
         $somebody = $this->getMock('stdClass', ['addInformation']);
 
@@ -203,7 +203,7 @@ class GameServerTest extends TestCase {
 
     public function testGetPlayerInfoFromGoldSrcAuthenticated() {
         $status = getFixture('status_goldsrc');
-        $server = $this->serverBuilder->setMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
         $someone = $this->getMock('stdClass', ['addInformation']);
         $somebody = $this->getMock('stdClass', ['addInformation']);
 
@@ -224,12 +224,12 @@ class GameServerTest extends TestCase {
     }
 
     public function testHandleChallengeRequest() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
 
-        $packet = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2CCHALLENGEPacket')->disableOriginalConstructor()->setMethods(['getChallengeNumber'])->getMock();
+        $packet = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2CCHALLENGEPacket')->disableOriginalConstructor()->onlyMethods(['getChallengeNumber'])->getMock();
         $packet->expects($this->once())->method('getChallengeNumber')->will($this->returnValue(1234));
 
-        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->setMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
+        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->onlyMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
         $socket->expects($this->once())->method('send')->with($this->isInstanceOf('\SteamCondenser\Servers\Packets\A2SPLAYERPacket'));
         $socket->expects($this->once())->method('getReply')->will($this->returnValue($packet));
         $server->socket = $socket;
@@ -240,12 +240,12 @@ class GameServerTest extends TestCase {
     }
 
     public function testHandleInfoRequest() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
 
-        $packet = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2AINFOBasePacket')->disableOriginalConstructor()->setMethods(['getInfo'])->getMock();
+        $packet = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2AINFOBasePacket')->disableOriginalConstructor()->onlyMethods(['getInfo'])->getMock();
         $packet->expects($this->once())->method('getInfo')->will($this->returnValue(['test' => 'test']));
 
-        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->setMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
+        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->onlyMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
         $socket->expects($this->once())->method('send')->with($this->isInstanceOf('\SteamCondenser\Servers\Packets\A2SINFOPacket'));
         $socket->expects($this->once())->method('getReply')->will($this->returnValue($packet));
         $server->socket = $socket;
@@ -256,12 +256,12 @@ class GameServerTest extends TestCase {
     }
 
     public function testHandlePlayersRequest() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
 
-        $packet = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2APLAYERPacket')->disableOriginalConstructor()->setMethods(['getPlayerHash'])->getMock();
+        $packet = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2APLAYERPacket')->disableOriginalConstructor()->onlyMethods(['getPlayerHash'])->getMock();
         $packet->expects($this->once())->method('getPlayerHash')->will($this->returnValue(['test' => 'test']));
 
-        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->setMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
+        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->onlyMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
         $socket->expects($this->once())->method('send')->with($this->isInstanceOf('\SteamCondenser\Servers\Packets\A2SPLAYERPacket'));
         $socket->expects($this->once())->method('getReply')->will($this->returnValue($packet));
         $server->socket = $socket;
@@ -272,12 +272,12 @@ class GameServerTest extends TestCase {
     }
 
     public function testHandleRulesRequest() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
 
-        $packet = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2ARULESPacket')->disableOriginalConstructor()->setMethods(['getRulesArray'])->getMock();
+        $packet = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2ARULESPacket')->disableOriginalConstructor()->onlyMethods(['getRulesArray'])->getMock();
         $packet->expects($this->once())->method('getRulesArray')->will($this->returnValue(['test' => 'test']));
 
-        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->setMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
+        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->onlyMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
         $socket->expects($this->once())->method('send')->with($this->isInstanceOf('\SteamCondenser\Servers\Packets\A2SRULESPacket'));
         $socket->expects($this->once())->method('getReply')->will($this->returnValue($packet));
         $server->socket = $socket;
@@ -288,15 +288,15 @@ class GameServerTest extends TestCase {
     }
 
     public function testHandleUnexpectedResponse() {
-        $server = $this->serverBuilder->setMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
+        $server = $this->serverBuilder->onlyMethods(['initSocket', 'rconAuth', 'rconExec'])->getMock();
         $server->setLogger(\SteamCondenser\getLogger(get_class($server)));
 
-        $packet1 = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2CCHALLENGEPacket')->disableOriginalConstructor()->setMethods(['getChallengeNumber'])->getMock();
+        $packet1 = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2CCHALLENGEPacket')->disableOriginalConstructor()->onlyMethods(['getChallengeNumber'])->getMock();
         $packet1->expects($this->once())->method('getChallengeNumber')->will($this->returnValue(1234));
-        $packet2 = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2APLAYERPacket')->disableOriginalConstructor()->setMethods(['getPlayerHash'])->getMock();
+        $packet2 = $this->getMockBuilder('\SteamCondenser\Servers\Packets\S2APLAYERPacket')->disableOriginalConstructor()->onlyMethods(['getPlayerHash'])->getMock();
         $packet2->expects($this->once())->method('getPlayerHash')->will($this->returnValue(['test' => 'test']));
 
-        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->setMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
+        $socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SteamSocket')->onlyMethods(['getReply', 'send'])->disableOriginalConstructor()->getMock();
         $socket->expects($this->exactly(2))->method('send')->with($this->isInstanceOf('\SteamCondenser\Servers\Packets\A2SPLAYERPacket'));
         $socket->expects($this->at(1))->method('getReply')->will($this->returnValue($packet1));
         $socket->expects($this->at(3))->method('getReply')->will($this->returnValue($packet2));

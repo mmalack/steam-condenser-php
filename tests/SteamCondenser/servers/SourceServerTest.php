@@ -32,7 +32,7 @@ class SourceServerTest extends TestCase {
 
     public function setUp(): void
     {
-        $this->rconSocket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\RCONSocket')->disableOriginalConstructor()->setMethods(['close', 'getReply', 'send'])->getMock();
+        $this->rconSocket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\RCONSocket')->disableOriginalConstructor()->onlyMethods(['close', 'getReply', 'send'])->getMock();
     }
 
     public function testDisconnect() {
@@ -55,7 +55,7 @@ class SourceServerTest extends TestCase {
     public function testRconAuth() {
         $this->rconSocket->expects($this->once())->method('send')->with($this->logicalAnd($this->isInstanceOf('\SteamCondenser\Servers\Packets\RCON\RCONAuthRequest'), $this->attributeEqualTo('requestId', 1234)));
         $this->rconSocket->expects($this->exactly(2))->method('getReply')->will($this->returnValue(new RCONAuthResponse(1234)));
-        $server = $this->getMockBuilder('\SteamCondenser\Servers\TestableSourceServer')->disableOriginalConstructor()->setMethods(['generateRconRequestId'])->getMock();
+        $server = $this->getMockBuilder('\SteamCondenser\Servers\TestableSourceServer')->disableOriginalConstructor()->onlyMethods(['generateRconRequestId'])->getMock();
         $server->rconSocket = $this->rconSocket;
         $server->expects($this->once())->method('generateRconRequestId')->will($this->returnValue(1234));
 

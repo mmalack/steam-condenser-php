@@ -25,7 +25,7 @@ class TestableServer extends Server {
 class ServerTest extends TestCase {
 
     public function testRotateIp() {
-        $server = $this->getMockBuilder('\SteamCondenser\Servers\TestableServer')->disableOriginalConstructor()->setMethods(['initSocket'])->getMock();
+        $server = $this->getMockBuilder('\SteamCondenser\Servers\TestableServer')->disableOriginalConstructor()->onlyMethods(['initSocket'])->getMock();
         $server->ipAddresses = ['127.0.0.1', '127.0.0.2'];
         $server->ipAddress = '127.0.0.1';
         $server->expects($this->exactly(2))->method('initSocket');

@@ -18,7 +18,7 @@ class SourceSocketTest extends TestCase {
     {
         $this->socketBuilder = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SourceSocket');
         $this->socketBuilder->disableOriginalConstructor();
-        $this->socketBuilder->setMethods(['receivePacket']);
+        $this->socketBuilder->onlyMethods(['receivePacket']);
         $this->socket = $this->socketBuilder->getMock();
         $this->socket->setLogger(\SteamCondenser\getLogger(get_class($this->socket)));
 

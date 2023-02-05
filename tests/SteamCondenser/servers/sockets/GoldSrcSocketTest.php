@@ -33,7 +33,7 @@ class GoldSrcSocketTest extends TestCase {
 
     public function testRconSend() {
         $packet = new RCONGoldSrcRequest('test');
-        $this->socketBuilder->setMethods(['close', 'send']);
+        $this->socketBuilder->onlyMethods(['close', 'send']);
         $socket = $this->socketBuilder->getMock();
         $socket->expects($this->once())->method('send')->with($packet);
 
@@ -41,7 +41,7 @@ class GoldSrcSocketTest extends TestCase {
     }
 
     public function testRconChallenge() {
-        $this->socketBuilder->setMethods(['close', 'getReply', 'rconSend']);
+        $this->socketBuilder->onlyMethods(['close', 'getReply', 'rconSend']);
         $socket = $this->socketBuilder->getMock();
         $socket->expects($this->once())->method('rconSend')->with('challenge rcon');
 
@@ -54,7 +54,7 @@ class GoldSrcSocketTest extends TestCase {
     }
 
     public function testBannedChallenge() {
-        $this->socketBuilder->setMethods(['close', 'getReply', 'rconSend']);
+        $this->socketBuilder->onlyMethods(['close', 'getReply', 'rconSend']);
         $socket = $this->socketBuilder->getMock();
         $socket->expects($this->once())->method('rconSend')->with('challenge rcon');
 
@@ -66,12 +66,12 @@ class GoldSrcSocketTest extends TestCase {
     }
 
     public function testSinglePacket() {
-        $this->socketBuilder->setMethods(['receivePacket']);
+        $this->socketBuilder->onlyMethods(['receivePacket']);
         $socket = $this->socketBuilder->getMock();
         $socket->expects($this->once())->method('receivePacket')->with(1400);
 
         $bufferBuilder = $this->getMockBuilder('\SteamCondenser\ByteBuffer');
-        $bufferBuilder->setMethods(['get', 'getLong']);
+        $bufferBuilder->onlyMethods(['get', 'getLong']);
         $bufferBuilder->disableOriginalConstructor();
         $buffer = $bufferBuilder->getMock();
         $reflectionSocket = new \ReflectionObject($socket);
@@ -89,13 +89,13 @@ class GoldSrcSocketTest extends TestCase {
     }
 
     public function testSplitPackets() {
-        $this->socketBuilder->setMethods(['receivePacket']);
+        $this->socketBuilder->onlyMethods(['receivePacket']);
         $socket = $this->socketBuilder->getMock();
         $socket->expects($this->at(0))->method('receivePacket')->with(1400);
         $socket->expects($this->at(1))->method('receivePacket')->with()->will($this->returnValue(1400));
 
         $bufferBuilder = $this->getMockBuilder('\SteamCondenser\ByteBuffer');
-        $bufferBuilder->setMethods(['get', 'getByte', 'getLong']);
+        $bufferBuilder->onlyMethods(['get', 'getByte', 'getLong']);
         $bufferBuilder->disableOriginalConstructor();
         $buffer = $bufferBuilder->getMock();
         $reflectionSocket = new \ReflectionObject($socket);
@@ -115,7 +115,7 @@ class GoldSrcSocketTest extends TestCase {
     }
 
     public function testRconExec() {
-        $this->socketBuilder->setMethods(['close', 'getReply', 'rconGetChallenge', 'rconSend']);
+        $this->socketBuilder->onlyMethods(['close', 'getReply', 'rconGetChallenge', 'rconSend']);
         $socket = $this->socketBuilder->getMock();
         $socket->expects($this->once())->method('rconGetChallenge');
         $socket->expects($this->at(1))->method('rconSend')->with('rcon -1 password command');
@@ -132,7 +132,7 @@ class GoldSrcSocketTest extends TestCase {
 
     public function testRconExecHLTV() {
         $this->socketBuilder->setConstructorArgs(['127.0.0.1', 27015, true]);
-        $this->socketBuilder->setMethods(['close', 'getReply', 'rconGetChallenge', 'rconSend']);
+        $this->socketBuilder->onlyMethods(['close', 'getReply', 'rconGetChallenge', 'rconSend']);
         $socket = $this->socketBuilder->getMock();
         $socket->expects($this->once())->method('rconGetChallenge');
         $socket->expects($this->at(1))->method('rconSend')->with('rcon -1 password command');

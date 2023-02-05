@@ -28,8 +28,8 @@ class MasterServerTest extends TestCase {
 
     public function setUp(): void
     {
-        $this->socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\MasterServerSocket')->disableOriginalConstructor()->setMethods(['getReply', 'send'])->getMock();
-        $this->server = $this->getMockBuilder('\SteamCondenser\Servers\TestableMasterServer')->disableOriginalConstructor()->setMethods(['rotateIp'])->getMock();
+        $this->socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\MasterServerSocket')->disableOriginalConstructor()->onlyMethods(['getReply', 'send'])->getMock();
+        $this->server = $this->getMockBuilder('\SteamCondenser\Servers\TestableMasterServer')->disableOriginalConstructor()->onlyMethods(['rotateIp'])->getMock();
         $this->server->setLogger(\SteamCondenser\getLogger(get_class($this->server)));
 
         $this->server->socket = $this->socket;

@@ -26,7 +26,7 @@ class TestableGoldSrcServer extends GoldSrcServer {
 class GoldSrcServerTest extends TestCase {
 
     public function testRconAuthFailed() {
-        $socket = $this->getMockBuilder('\SteamCondenser\UDPSocket')->setMethods(['rconExec'])->disableOriginalConstructor()->getMock();
+        $socket = $this->getMockBuilder('\SteamCondenser\UDPSocket')->addMethods(['rconExec'])->disableOriginalConstructor()->getMock();
         $socket->expects($this->once())->method('rconExec')->with('password', '')->will($this->throwException(new RCONNoAuthException()));
         $server = new TestableGoldSrcServer('127.0.0.1');
         $server->socket = $socket;
@@ -36,7 +36,7 @@ class GoldSrcServerTest extends TestCase {
     }
 
     public function testRconAuthSuccessful() {
-        $socket = $this->getMockBuilder('\SteamCondenser\UDPSocket')->setMethods(['rconExec'])->disableOriginalConstructor()->getMock();
+        $socket = $this->getMockBuilder('\SteamCondenser\UDPSocket')->addMethods(['rconExec'])->disableOriginalConstructor()->getMock();
         $socket->expects($this->once())->method('rconExec')->with('password', '')->will($this->returnValue(''));
         $server = new TestableGoldSrcServer('127.0.0.1');
         $server->socket = $socket;
@@ -46,7 +46,7 @@ class GoldSrcServerTest extends TestCase {
     }
 
     public function testRconExec() {
-        $socket = $this->getMockBuilder('\SteamCondenser\UDPSocket')->setMethods(['rconExec'])->disableOriginalConstructor()->getMock();
+        $socket = $this->getMockBuilder('\SteamCondenser\UDPSocket')->addMethods(['rconExec'])->disableOriginalConstructor()->getMock();
         $socket->expects($this->once())->method('rconExec')->with('password', 'command')->will($this->returnValue('test'));
         $server = new TestableGoldSrcServer('127.0.0.1');
         $server->rconAuthenticated = true;
