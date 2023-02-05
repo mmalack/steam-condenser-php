@@ -30,7 +30,8 @@ class TestableSourceServer extends SourceServer {
 
 class SourceServerTest extends TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->rconSocket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\RCONSocket')->disableOriginalConstructor()->setMethods(['close', 'getReply', 'send'])->getMock();
     }
 

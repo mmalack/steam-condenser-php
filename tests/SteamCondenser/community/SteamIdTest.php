@@ -20,7 +20,8 @@ use PHPUnit\Framework\TestCase;
  */
 class SteamIdTest extends TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->webApiInstance = new \ReflectionProperty('\SteamCondenser\Community\WebApi', 'instance');
         $this->webApiInstance->setAccessible(true);
     }

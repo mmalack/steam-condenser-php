@@ -16,7 +16,8 @@ use SteamCondenser\Servers\Packets\RCON\RCONGoldSrcResponse;
 
 class GoldSrcSocketTest extends TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->socketBuilder = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\GoldSrcSocket');
         $this->socketBuilder->setConstructorArgs(['127.0.0.1']);
     }

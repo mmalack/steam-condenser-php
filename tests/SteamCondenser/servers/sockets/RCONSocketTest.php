@@ -23,7 +23,8 @@ class TestableRCONSocket extends RCONSocket {
 
 class RCONSocketTest extends TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->socketBuilder = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\TestableRCONSocket');
         $this->socketBuilder->setConstructorArgs(['127.0.0.1', 27015]);
     }

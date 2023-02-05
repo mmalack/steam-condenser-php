@@ -32,7 +32,8 @@ class GenericSteamSocket extends SteamSocket {
  */
 class SteamSocketTest extends TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->udpSocket = $this->getMock('\SteamCondenser\UDPSocket');
 
         $this->socket = new GenericSteamSocket('127.0.0.1');

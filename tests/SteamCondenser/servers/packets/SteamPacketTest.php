@@ -14,7 +14,8 @@ use PHPUnit\Framework\TestCase;
 
 class SteamPacketTest extends TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->packet = $this->getMockForAbstractClass('\SteamCondenser\Servers\Packets\SteamPacket', [0x61, 'test']);
     }
 

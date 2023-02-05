@@ -36,7 +36,8 @@ abstract class TestableGameServer extends GameServer {
 
 class GameServerTest extends TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->serverBuilder = $this->getMockBuilder('\SteamCondenser\Servers\TestableGameServer');
         $this->serverBuilder->disableOriginalConstructor();
     }

@@ -14,7 +14,8 @@ use PHPUnit\Framework\TestCase;
 
 class SourceSocketTest extends TestCase {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->socketBuilder = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\SourceSocket');
         $this->socketBuilder->disableOriginalConstructor();
         $this->socketBuilder->setMethods(['receivePacket']);

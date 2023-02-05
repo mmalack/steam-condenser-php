@@ -14,7 +14,8 @@ class WebApiTest extends TestCase {
 
     private $instance;
 
-    public function setUp() {
+    public function setUp(): void
+    {
         WebApi::setApiKey('0123456789ABCDEF0123456789ABCDEF');
         WebApi::setSecure(true);
 
