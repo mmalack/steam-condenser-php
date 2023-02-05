@@ -66,7 +66,7 @@ class MasterServerTest extends TestCase {
         $this->socket->expects($this->at(7))->method('getReply')->will($this->throwException(new TimeoutException()));
         $this->server->expects($this->once())->method('rotateIp')->will($this->returnValue(true));
 
-        $this->setExpectedException('\SteamCondenser\Exceptions\TimeoutException');
+        $this->expectException(TimeoutException::class);
 
         $this->server->getServers();
     }

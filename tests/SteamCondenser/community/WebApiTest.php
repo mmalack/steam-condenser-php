@@ -9,6 +9,7 @@
 namespace SteamCondenser\Community;
 
 use PHPUnit\Framework\TestCase;
+use SteamCondenser\Exceptions\WebApiException;
 
 class WebApiTest extends TestCase {
 
@@ -34,7 +35,8 @@ class WebApiTest extends TestCase {
     }
 
     public function testInvalidApiKey() {
-        $this->setExpectedException('\SteamCondenser\Exceptions\WebApiException', 'This is not a valid Steam Web API key.');
+        $this->expectException(WebApiException::class);
+        $this->expectExceptionMessage('This is not a valid Steam Web API key.');
         WebApi::setApiKey('test');
     }
 
@@ -62,7 +64,8 @@ class WebApiTest extends TestCase {
         $webApi->expects($this->once())->method('_load')->with('json', 'interface', 'method', 2, ['test' => 'param'])->will($this->returnValue($data));
         $this->instance->setValue($webApi);
 
-        $this->setExpectedException('\SteamCondenser\Exceptions\WebApiException', 'The Web API request failed with the following error: error (status code: 2).');
+        $this->expectException(WebApiException::class);
+        $this->expectExceptionMessage('The Web API request failed with the following error: error (status code: 2).');
 
         WebApi::getJSONData('interface', 'method', 2, ['test' => 'param']);
     }

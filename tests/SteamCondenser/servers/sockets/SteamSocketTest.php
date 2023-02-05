@@ -11,6 +11,7 @@
 namespace SteamCondenser\Servers\Sockets;
 
 use PHPUnit\Framework\TestCase;
+use SteamCondenser\Exceptions\TimeoutException;
 
 class GenericSteamSocket extends SteamSocket {
 
@@ -96,7 +97,7 @@ class SteamSocketTest extends TestCase {
 
     public function testTimeout() {
         $this->udpSocket->expects($this->once())->method('select')->will($this->returnValue(false));
-        $this->setExpectedException('\SteamCondenser\Exceptions\TimeoutException');
+        $this->expectException(TimeoutException::class);
 
         $this->socket->receivePacket();
     }

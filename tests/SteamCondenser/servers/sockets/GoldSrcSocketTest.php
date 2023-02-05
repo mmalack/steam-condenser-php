@@ -11,6 +11,7 @@
 namespace SteamCondenser\Servers\Sockets;
 
 use PHPUnit\Framework\TestCase;
+use SteamCondenser\Exceptions\RCONBanException;
 use SteamCondenser\Servers\Packets\RCON\RCONGoldSrcRequest;
 use SteamCondenser\Servers\Packets\RCON\RCONGoldSrcResponse;
 
@@ -60,7 +61,7 @@ class GoldSrcSocketTest extends TestCase {
 
         $reply = new RCONGoldSrcResponse("You have been banned from this server.\0\0");
         $socket->expects($this->once())->method('getReply')->will($this->returnValue($reply));
-        $this->setExpectedException('\SteamCondenser\Exceptions\RCONBanException');
+        $this->expectException(RCONBanException::class);
 
         $socket->rconGetChallenge();
     }

@@ -11,6 +11,7 @@
 namespace SteamCondenser\Servers;
 
 use PHPUnit\Framework\TestCase;
+use SteamCondenser\Exceptions\RCONNoAuthException;
 use SteamCondenser\Servers\Packets\RCON\RCONAuthResponse;
 use SteamCondenser\Servers\Packets\RCON\RCONExecResponse;
 
@@ -90,7 +91,7 @@ class SourceServerTest extends TestCase {
 
     public function testRconExecNoAuth() {
         $server = new SourceServer('127.0.0.1');
-        $this->setExpectedException('\SteamCondenser\Exceptions\RCONNoAuthException');
+        $this->expectException(RCONNoAuthException::class);
 
         $server->rconExec('test');
     }
@@ -103,7 +104,7 @@ class SourceServerTest extends TestCase {
         $server->rconRequestId = 1234;
         $server->rconSocket = $this->rconSocket;
 
-        $this->setExpectedException('\SteamCondenser\Exceptions\RCONNoAuthException');
+        $this->expectException(RCONNoAuthException::class);
 
         $server->rconExec('test');
     }

@@ -11,6 +11,7 @@
 namespace SteamCondenser\Servers\Sockets;
 
 use PHPUnit\Framework\TestCase;
+use SteamCondenser\Exceptions\PacketFormatException;
 
 class MasterServerSocketTest extends TestCase {
 
@@ -34,7 +35,8 @@ class MasterServerSocketTest extends TestCase {
 
         $this->buffer->expects($this->once())->method('getLong')->will($this->returnValue(1));
 
-        $this->setExpectedException('\SteamCondenser\Exceptions\PacketFormatException', 'Master query response has wrong packet header.');
+        $this->expectException(PacketFormatException::class);
+        $this->expectExceptionMessage('Master query response has wrong packet header.');
 
         $this->socket->getReply();
     }
