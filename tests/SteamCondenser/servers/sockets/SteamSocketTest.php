@@ -10,6 +10,8 @@
 
 namespace SteamCondenser\Servers\Sockets;
 
+use PHPUnit\Framework\TestCase;
+
 class GenericSteamSocket extends SteamSocket {
 
     public $buffer;
@@ -28,7 +30,7 @@ class GenericSteamSocket extends SteamSocket {
  * @package    steam-condenser
  * @subpackage tests
  */
-class SteamSocketTest extends \PHPUnit_Framework_TestCase {
+class SteamSocketTest extends TestCase {
 
     public function setUp() {
         $this->udpSocket = $this->getMock('\SteamCondenser\UDPSocket');

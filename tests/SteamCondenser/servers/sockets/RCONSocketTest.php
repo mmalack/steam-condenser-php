@@ -10,6 +10,7 @@
 
 namespace SteamCondenser\Servers\Sockets;
 
+use PHPUnit\Framework\TestCase;
 use SteamCondenser\Exceptions\ConnectionResetException;
 
 class TestableRCONSocket extends RCONSocket {
@@ -20,7 +21,7 @@ class TestableRCONSocket extends RCONSocket {
 
 }
 
-class RCONSocketTest extends \PHPUnit_Framework_TestCase {
+class RCONSocketTest extends TestCase {
 
     public function setUp() {
         $this->socketBuilder = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\TestableRCONSocket');

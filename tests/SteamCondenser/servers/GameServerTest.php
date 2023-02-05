@@ -10,6 +10,8 @@
 
 namespace SteamCondenser\Servers;
 
+use PHPUnit\Framework\TestCase;
+
 abstract class TestableGameServer extends GameServer {
 
     public $challengeNumber;
@@ -32,7 +34,7 @@ abstract class TestableGameServer extends GameServer {
 
 }
 
-class GameServerTest extends \PHPUnit_Framework_TestCase {
+class GameServerTest extends TestCase {
 
     public function setUp() {
         $this->serverBuilder = $this->getMockBuilder('\SteamCondenser\Servers\TestableGameServer');

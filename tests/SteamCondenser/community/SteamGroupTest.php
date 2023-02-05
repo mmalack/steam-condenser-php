@@ -10,13 +10,15 @@
 
 namespace SteamCondenser\Community;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @author     Sebastian Staudt
  * @covers     SteamGroup
  * @package    steam-condenser
  * @subpackage tests
  */
-class SteamGroupTest extends \PHPUnit_Framework_TestCase {
+class SteamGroupTest extends TestCase {
 
     public function testCacheSteamId64() {
         $this->assertFalse(SteamGroup::isCached('103582791429521412'));

@@ -10,10 +10,11 @@
 
 namespace SteamCondenser\Servers\Sockets;
 
+use PHPUnit\Framework\TestCase;
 use SteamCondenser\Servers\Packets\RCON\RCONGoldSrcRequest;
 use SteamCondenser\Servers\Packets\RCON\RCONGoldSrcResponse;
 
-class GoldSrcSocketTest extends \PHPUnit_Framework_TestCase {
+class GoldSrcSocketTest extends TestCase {
 
     public function setUp() {
         $this->socketBuilder = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\GoldSrcSocket');

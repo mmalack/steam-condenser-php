@@ -10,13 +10,15 @@
 
 namespace SteamCondenser\Community;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @author     Sebastian Staudt
  * @covers     SteamId
  * @package    steam-condenser
  * @subpackage tests
  */
-class SteamIdTest extends \PHPUnit_Framework_TestCase {
+class SteamIdTest extends TestCase {
 
     public function setUp() {
         $this->webApiInstance = new \ReflectionProperty('\SteamCondenser\Community\WebApi', 'instance');

@@ -10,7 +10,9 @@
 
 namespace SteamCondenser\Servers\Packets;
 
-class SteamPacketTest extends \PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class SteamPacketTest extends TestCase {
 
     public function setUp() {
         $this->packet = $this->getMockForAbstractClass('\SteamCondenser\Servers\Packets\SteamPacket', [0x61, 'test']);

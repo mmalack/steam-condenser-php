@@ -10,6 +10,7 @@
 
 namespace SteamCondenser\Servers;
 
+use PHPUnit\Framework\TestCase;
 use SteamCondenser\Exceptions\TimeoutException;
 use SteamCondenser\Servers\Packets\M2ASERVERBATCHPacket;
 
@@ -23,7 +24,7 @@ class TestableMasterServer extends MasterServer {
 
 }
 
-class MasterServerTest extends \PHPUnit_Framework_TestCase {
+class MasterServerTest extends TestCase {
 
     public function setUp() {
         $this->socket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\MasterServerSocket')->disableOriginalConstructor()->setMethods(['getReply', 'send'])->getMock();

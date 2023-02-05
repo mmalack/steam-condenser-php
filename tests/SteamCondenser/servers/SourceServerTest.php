@@ -10,6 +10,7 @@
 
 namespace SteamCondenser\Servers;
 
+use PHPUnit\Framework\TestCase;
 use SteamCondenser\Servers\Packets\RCON\RCONAuthResponse;
 use SteamCondenser\Servers\Packets\RCON\RCONExecResponse;
 
@@ -27,7 +28,7 @@ class TestableSourceServer extends SourceServer {
 
 }
 
-class SourceServerTest extends \PHPUnit_Framework_TestCase {
+class SourceServerTest extends TestCase {
 
     public function setUp() {
         $this->rconSocket = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\RCONSocket')->disableOriginalConstructor()->setMethods(['close', 'getReply', 'send'])->getMock();

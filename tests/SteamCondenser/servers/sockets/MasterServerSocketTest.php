@@ -10,7 +10,9 @@
 
 namespace SteamCondenser\Servers\Sockets;
 
-class MasterServerSocketTest extends \PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class MasterServerSocketTest extends TestCase {
 
     public function setUp() {
         $this->socketBuilder = $this->getMockBuilder('\SteamCondenser\Servers\Sockets\MasterServerSocket');

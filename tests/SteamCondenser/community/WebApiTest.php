@@ -8,7 +8,9 @@
 
 namespace SteamCondenser\Community;
 
-class WebApiTest extends \PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class WebApiTest extends TestCase {
 
     private $instance;
 
