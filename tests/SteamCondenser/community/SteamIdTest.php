@@ -130,7 +130,8 @@ class SteamIdTest extends TestCase {
         $this->assertNull(SteamId::resolveVanityUrl('unknown'));
     }
 
-    public function tearDown() {
+    public function tearDown(): void
+    {
         SteamId::clearCache();
     }
 

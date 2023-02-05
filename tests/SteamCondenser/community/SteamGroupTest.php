@@ -98,7 +98,8 @@ class SteamGroupTest extends TestCase {
         $this->assertTrue($group->isFetched());
     }
 
-    public function tearDown() {
+    public function tearDown(): void
+    {
         SteamId::clearCache();
     }
 
