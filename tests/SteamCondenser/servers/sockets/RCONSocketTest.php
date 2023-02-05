@@ -39,7 +39,7 @@ class RCONSocketTest extends TestCase {
 
     public function testClose() {
         $socket = new TestableRCONSocket('127.0.0.1', 27015);
-        $tcpSocket = $this->getMock('\SteamCondenser\TCPSocket');
+        $tcpSocket = $this->createMock('\SteamCondenser\TCPSocket');
         $socket->socket = $tcpSocket;
 
         $tcpSocket->expects($this->at(1))->method('isOpen')->will($this->returnValue(true));
@@ -51,7 +51,7 @@ class RCONSocketTest extends TestCase {
 
     public function testSend() {
         $socket = new TestableRCONSocket('127.0.0.1', 27015);
-        $tcpSocket = $this->getMock('\SteamCondenser\TCPSocket');
+        $tcpSocket = $this->createMock('\SteamCondenser\TCPSocket');
         $socket->socket = $tcpSocket;
         $packet = $this->getMockBuilder('\SteamCondenser\Servers\Packets\RCON\RCONPacket')->disableOriginalConstructor()->getMock();
         $packet->expects($this->once())->method('__toString')->will($this->returnValue('test'));
@@ -82,7 +82,7 @@ class RCONSocketTest extends TestCase {
     public function testConnectionDropped() {
         $this->socketBuilder->onlyMethods(['receivePacket']);
         $socket = $this->socketBuilder->getMock();
-        $tcpSocket = $this->getMock('\SteamCondenser\TCPSocket');
+        $tcpSocket = $this->createMock('\SteamCondenser\TCPSocket');
         $tcpSocket->expects($this->once())->method('close');
         $socket->socket = $tcpSocket;
         $socket->expects($this->once())->method('receivePacket')->with(4)->will($this->returnValue(0));
@@ -93,7 +93,7 @@ class RCONSocketTest extends TestCase {
     public function testConnectionReset() {
         $this->socketBuilder->onlyMethods(['receivePacket']);
         $socket = $this->socketBuilder->getMock();
-        $tcpSocket = $this->getMock('\SteamCondenser\TCPSocket');
+        $tcpSocket = $this->createMock('\SteamCondenser\TCPSocket');
         $tcpSocket->expects($this->once())->method('close');
         $socket->socket = $tcpSocket;
         $socket->expects($this->once())->method('receivePacket')->with(4)->will($this->throwException(new ConnectionResetException()));

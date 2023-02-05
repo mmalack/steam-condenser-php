@@ -136,8 +136,8 @@ class GameServerTest extends TestCase {
     public function testGetPlayerInfoFromSourceWithPassword() {
         $status = getFixture('status_source');
         $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
-        $someone = $this->getMock('stdClass', ['addInformation']);
-        $somebody = $this->getMock('stdClass', ['addInformation']);
+        $someone = $this->getMockBuilder('stdClass')->addMethods(['addInformation'])->getMock();
+        $somebody = $this->getMockBuilder('stdClass')->addMethods(['addInformation'])->getMock();
 
         $playerHash = ['someone' => $someone, 'somebody' => $somebody];
         $server->playerHash = $playerHash;
@@ -159,8 +159,8 @@ class GameServerTest extends TestCase {
     public function testGetPlayerInfoFromSourceAuthenticated() {
         $status = getFixture('status_source');
         $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
-        $someone = $this->getMock('stdClass', ['addInformation']);
-        $somebody = $this->getMock('stdClass', ['addInformation']);
+        $someone = $this->getMockBuilder('stdClass')->addMethods(['addInformation'])->getMock();
+        $somebody = $this->getMockBuilder('stdClass')->addMethods(['addInformation'])->getMock();
 
         $playerHash = ['someone' => $someone, 'somebody' => $somebody];
         $server->playerHash = $playerHash;
@@ -181,8 +181,8 @@ class GameServerTest extends TestCase {
     public function testGetPlayerInfoFromGoldSrcWithPassword() {
         $status = getFixture('status_goldsrc');
         $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
-        $someone = $this->getMock('stdClass', ['addInformation']);
-        $somebody = $this->getMock('stdClass', ['addInformation']);
+        $someone = $this->getMockBuilder('stdClass')->addMethods(['addInformation'])->getMock();
+        $somebody = $this->getMockBuilder('stdClass')->addMethods(['addInformation'])->getMock();
 
         $playerHash = ['someone' => $someone, 'somebody' => $somebody];
         $server->playerHash = $playerHash;
@@ -204,8 +204,8 @@ class GameServerTest extends TestCase {
     public function testGetPlayerInfoFromGoldSrcAuthenticated() {
         $status = getFixture('status_goldsrc');
         $server = $this->serverBuilder->onlyMethods(['handleResponseForRequest', 'initSocket', 'rconAuth', 'rconExec'])->getMock();
-        $someone = $this->getMock('stdClass', ['addInformation']);
-        $somebody = $this->getMock('stdClass', ['addInformation']);
+        $someone = $this->getMockBuilder('stdClass')->addMethods(['addInformation'])->getMock();
+        $somebody = $this->getMockBuilder('stdClass')->addMethods(['addInformation'])->getMock();
 
         $playerHash = ['someone' => $someone, 'somebody' => $somebody];
         $server->playerHash = $playerHash;
